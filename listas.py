@@ -915,3 +915,299 @@ class Macaco:
         else:
             print('Digerindo.')
             self.bucho = []
+
+#9
+class Ponto:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def imprimir(self):
+        print("({}, {})".format(self.x, self.y))
+
+class Retangulo:
+    def __init__(self, largura, altura, ponto_inicio):
+        self.largura = largura
+        self.altura = altura
+        self.ponto_inicio = ponto_inicio
+
+    def centro(self):
+        x_centro = self.ponto_inicio.x + self.largura/2
+        y_centro = self.ponto_inicio.y + self.altura/2
+        return Ponto(x_centro, y_centro)
+
+
+retangulos = []
+
+while True:
+    print("\nMenu:\n")
+    print("1 - Criar novo retângulo")
+    print("2 - Alterar valores de um retângulo existente")
+    print("3 - Imprimir centro de um retângulo existente")
+    print("4 - Sair\n")
+
+    opcao = int(input("Digite uma opção: "))
+
+    if opcao == 1:
+        print("\nCriando novo retângulo\n")
+        x = int(input("Digite o valor de x do ponto de início: "))
+        y = int(input("Digite o valor de y do ponto de início: "))
+        ponto_inicio = Ponto(x, y)
+        largura = int(input("Digite a largura do retângulo: "))
+        altura = int(input("Digite a altura do retângulo: "))
+        retangulo = Retangulo(largura, altura, ponto_inicio)
+        retangulos.append(retangulo)
+        print("Retângulo criado com sucesso!\n")
+
+    elif opcao == 2:
+        if len(retangulos) == 0:
+            print("\nNão há retângulos cadastrados.\n")
+        else:
+            print("\nAlterando valores de um retângulo existente\n")
+            for i, retangulo in enumerate(retangulos):
+                print("Retângulo {}".format(i+1))
+                print("- Ponto de início: ", end="")
+                retangulo.ponto_inicio.imprimir()
+                largura = int(input("- Digite a nova largura do retângulo: "))
+                altura = int(input("- Digite a nova altura do retângulo: "))
+                retangulo.largura = largura
+                retangulo.altura = altura
+                print("Valores alterados com sucesso!\n")
+                break
+
+    elif opcao == 3:
+        if len(retangulos) == 0:
+            print("\nNão há retângulos cadastrados.\n")
+        else:
+            print("\nImprimindo centro de um retângulo existente\n")
+            for i, retangulo in enumerate(retangulos):
+                print("Retângulo {}".format(i+1))
+                print("- Centro: ", end="")
+                retangulo.centro().imprimir()
+                print("")
+                break
+
+    elif opcao == 4:
+        print("\nSaindo...")
+        break
+
+    else:
+        print("\nOpção inválida!\n")
+
+#10
+class bombaCombustivel:
+    def __init__(self, tipoCombustivel, valorLitro, quantidadeCombustivel):
+        self.tipoCombustivel = tipoCombustivel
+        self.valorLitro = valorLitro
+        self.quantidadeCombustivel = quantidadeCombustivel
+        
+    def abastecerPorValor(self, valorAbastecido):
+        qtdLitros = valorAbastecido / self.valorLitro
+        print(f'Foram abastecidos {qtdLitros:.2f} litros de {self.tipoCombustivel}.')
+        self.quantidadeCombustivel -= qtdLitros
+        
+    def abastecerPorLitro(self, qtdLitros):
+        valorPagar = self.valorLitro * qtdLitros
+        print(f'O cliente deve pagar R${valorPagar:.2f} pelo abastecimento.')
+        self.quantidadeCombustivel -= qtdLitros
+        
+    def alterarValor(self, novoValor):
+        self.valorLitro = novoValor
+        
+    def alterarCombustivel(self, novoCombustivel):
+        self.tipoCombustivel = novoCombustivel
+        
+    def alterarQuantidadeCombustivel(self, novaQuantidade):
+        self.quantidadeCombustivel = novaQuantidade
+
+#11
+class Carro:
+    def __init__(self, consumo):
+        self.consumo = consumo
+        self.combustivel = 0
+        
+    def andar(self, distancia):
+        combustivel_gasto = distancia / self.consumo
+        if combustivel_gasto > self.combustivel:
+            print('O carro não tem combustível suficiente para rodar essa distância!')
+        else:
+            self.combustivel -= combustivel_gasto
+            print(f'O carro percorreu {distancia} km e gastou {combustivel_gasto:.2f} litros de combustível.')
+        
+    def obterGasolina(self):
+        return self.combustivel
+    
+    def adicionarGasolina(self, quantidade):
+        self.combustivel += quantidade
+        print(f'Tanque abastecido com {quantidade} litros de combustível. O carro agora tem {self.combustivel} litros no tanque.')
+
+#12
+class ContaInvestimento:
+    def __init__(self, saldoInicial, taxaJuros):
+        self.saldo = saldoInicial
+        self.taxaJuros = taxaJuros
+        
+    def adicioneJuros(self):
+        juros = self.saldo * (self.taxaJuros / 100)
+        self.saldo += juros
+        
+    def depositar(self, valor):
+        self.saldo += valor
+        
+    def sacar(self, valor):
+        if valor <= self.saldo:
+            self.saldo -= valor
+        else:
+            print('Saldo insuficiente.')
+            
+    def consultarSaldo(self):
+        return self.saldo
+
+#13
+class Funcionario:
+    def __init__(self, nome, salario):
+        self.nome = nome
+        self.salario = salario
+        
+    def getNome(self):
+        return self.nome
+    
+    def getSalario(self):
+        return self.salario
+
+#14
+class Funcionario:
+    def __init__(self, nome, salario):
+        self.nome = nome
+        self.salario = salario
+        
+    def getNome(self):
+        return self.nome
+    
+    def getSalario(self):
+        return self.salario
+    
+    def aumentarSalario(self, porcentualDeAumento):
+        aumento = self.salario * (porcentualDeAumento / 100)
+        self.salario += aumento
+        print(f'Salário atualizado: R${self.salario:.2f}')
+
+#15
+class BichinhoVirtual:
+    def __init__(self, nome):
+        self.nome = nome
+        self.fome = 50
+        self.tedio = 50
+        
+    def alimentar(self, quantidade):
+        self.fome -= quantidade / 2
+        
+    def brincar(self, duracao):
+        self.tedio -= duracao / 10
+        
+    def humor(self):
+        if self.fome <= 0 or self.tedio <= 0:
+            return 'mal-humorado'
+        elif self.fome < 20 or self.tedio < 20:
+            return 'triste'
+        elif self.fome > 80 or self.tedio > 80:
+            return 'feliz'
+        else:
+            return 'satisfeito'
+
+#16
+class BichinhoVirtual:
+    def __init__(self, nome):
+        self.nome = nome
+        self.fome = 50
+        self.tedio = 50
+    
+    def alimentar(self, quantidade):
+        self.fome -= quantidade / 2
+        
+    def brincar(self, duracao):
+        self.tedio -= duracao / 10
+        
+    def humor(self):
+        if self.fome <= 0 or self.tedio <= 0:
+            return 'mal-humorado'
+        elif self.fome < 20 or self.tedio < 20:
+            return 'triste'
+        elif self.fome > 80 or self.tedio > 80:
+            return 'feliz'
+        else:
+            return 'satisfeito'
+
+    def __str__(self):
+        return f'Bichinho {self.nome} - Fome: {self.fome}, Tédio: {self.tedio}'
+
+#17
+import random
+
+class BichinhoVirtual:
+    def __init__(self, nome):
+        self.nome = nome
+        self.fome = random.randint(0, 100)
+        self.tedio = random.randint(0, 100)
+    
+    def alimentar(self, quantidade):
+        self.fome -= quantidade / 2
+        
+    def brincar(self, duracao):
+        self.tedio -= duracao / 10
+        
+    def humor(self):
+        if self.fome <= 0 or self.tedio <= 0:
+            return 'mal-humorado'
+        elif self.fome < 20 or self.tedio < 20:
+            return 'triste'
+        elif self.fome > 80 or self.tedio > 80:
+            return 'feliz'
+        else:
+            return 'satisfeito'
+
+    def __str__(self):
+        return f'Bichinho {self.nome} - Fome: {self.fome}, Tédio: {self.tedio}'
+        
+
+class FazendaBichinhos:
+    def __init__(self, numBichinhos):
+        self.bichinhos = []
+        for i in range(numBichinhos):
+            nome = f'Bichinho{i+1}'
+            self.bichinhos.append(BichinhoVirtual(nome))
+        
+    def alimentarTodos(self, quantidade):
+        for bichinho in self.bichinhos:
+            bichinho.alimentar(quantidade)
+        
+    def brincarTodos(self, duracao):
+        for bichinho in self.bichinhos:
+            bichinho.brincar(duracao)
+    
+    def ouvirTodos(self):
+        for bichinho in self.bichinhos:
+            print(bichinho)
+
+numBichinhos = int(input('Quantos bichinhos deseja criar? '))
+fazenda = FazendaBichinhos(numBichinhos)
+
+while True:
+    
+    print('O que deseja fazer?')
+    print('1 - Alimentar todos os bichinhos')
+    print('2 - Brincar com todos os bichinhos')
+    print('3 - Ouvir todos os bichinhos')
+    print('4 - Sair')
+    opcao = int(input())
+    
+    if opcao == 1:
+        quantidade = int(input('Quantas unidades de comida deseja dar? '))
+        fazenda.alimentarTodos(quantidade)
+    elif opcao == 2:
+        duracao = int(input('Por quanto tempo deseja brincar (em minutos)? '))
+        fazenda.brincarTodos(duracao)
+    elif opcao == 3:
+        fazenda.ouvirTodos()
+    else:
+        break
